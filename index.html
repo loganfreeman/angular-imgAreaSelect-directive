@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Test</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+  <!-- REQUIRED 1/3 - AngularJS Core -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"></script>
+  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+	
+	<script type="text/javascript" src="js/jquery.imgareaselect.js"></script>
+	
+	
+	<link rel="stylesheet" type="text/css" href="css/imgareaselect-animated.css" />
+
+  <script>
+    var myApp = null;
+    (function() {
+
+      angular.module('myApp', [])
+      .directive('imgAreaSelect', function() {
+	return {
+		restrict : 'EA',
+		link : function(scope, element, attr) {
+
+			$(element).imgAreaSelect({
+				// aspectRatio: '1:1',
+				handles : true,
+				fadeSpeed : 200,
+				onSelectChange : function(img, selection) {
+					scope.$apply(function() {
+						scope.preview(img, selection);
+					});
+				}
+			});
+
+		}
+	};
+})
+     .controller('MainController', function($scope){
+     
+     $scope.img = 'img/Penguins.jpg';
+
+	$scope.preview = function(img, selection) {
+		// console.log(selection);
+		var photoWidth = img.width;
+
+		var photoHeight = img.height;
+		
+	    if (!selection.width || !selection.height)
+	        return;
+	    
+	    $scope.selection = selection;
+
+	    var scaleX = 400 / selection.width;
+	    var scaleY = 400 / selection.height;
+	    
+	    var ratio = Math.min(400 / selection.width, 400 / selection.height);
+	    
+	    $('#preview img').css({
+	        width: photoWidth * ratio,
+	        height: photoHeight * ratio,
+	        marginLeft: -selection.x1 * ratio,
+	        marginTop: -selection.y1 * ratio
+	    });
+
+
+		$('#preview').css({
+	        width: ratio * selection.width ,
+	        height: ratio * selection.height,
+	    });
+	    
+	    
+	    $('#photo').data('selection', selection);
+	}
+});
+
+    })();
+  </script>
+
+  <body>
+  <div height="100%" ng-controller="MainController">
+	<div class="container demo">
+		<div style="float: left; width: 50%;">
+			<p class="instructions">Click and drag on the image to select an
+				area.</p>
+
+			<div class="frame"
+				style="margin: 0 0.3em; border-right-style: solid;">
+				<img id="photo" img-area-select ng-src="{{img}}" style="width: 100%; height: auto;" />
+			</div>
+		</div>
+
+		<div style="float: left; width: 50%; height: 85%; position: relative;">
+			<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
+				Selection Preview</p>
+
+			<div class='scrollbale' style="position: fixed;">
+				<div class="frame"
+					style="margin: 0 1em; width: 400px; height: 400px;">
+					<div id="preview"
+						style="width: 400px; height: 400px; overflow: hidden;">
+						<img ng-src="{{img}}" style="width: 400px; height: 400px;" />
+					</div>
+				</div>
+
+				<div style="clear: both;" />
+
+				<table style="margin-top: 1em;">
+					<thead>
+						<tr>
+							<th colspan="2"
+								style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+								Coordinates</th>
+							<th colspan="2"
+								style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+								Dimensions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 10%;"><b>X<sub>1</sub>:
+							</b></td>
+							<td style="width: 30%;"><input type="text" id="x1" value="-" ng-model="selection.x1"/></td>
+							<td style="width: 20%;"><b>Width:</b></td>
+							<td><input type="text" value="-" id="w" ng-model="selection.width"/></td>
+						</tr>
+						<tr>
+							<td><b>Y<sub>1</sub>:
+							</b></td>
+							<td><input type="text" id="y1" value="-" ng-model="selection.y1"/></td>
+							<td><b>Height:</b></td>
+							<td><input type="text" id="h" value="-" ng-model="selection.height"/></td>
+						</tr>
+						<tr>
+							<td><b>X<sub>2</sub>:
+							</b></td>
+							<td><input type="text" id="x2" value="-" ng-model="selection.x2"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Y<sub>2</sub>:
+							</b></td>
+							<td><input type="text" id="y2" value="-"  ng-model="selection.y2"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+  </body>
+</html>

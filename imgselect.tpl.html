@@ -1,0 +1,77 @@
+<div height="100%">
+	<div class="container demo">
+		<div style="float: left; width: 50%;">
+			<p class="instructions">Click and drag on the image to select an
+				area.</p>
+
+			<div class="frame"
+				style="margin: 0 0.3em; border-right-style: solid;">
+				<!-- <img id="photo" ng-src="img/{{img}}" style="width: 100%; height: auto;" /> -->
+				<!-- <img-cropped src='{{img}}' selected='selected(cords)' style="width: 100%; height: auto;"> -->
+				<img id="photo" img-area-select ng-src="{{img}}" style="width: 100%; height: auto;" />
+			</div>
+		</div>
+
+		<div style="float: left; width: 50%; height: 85%; position: relative;">
+			<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
+				Selection Preview</p>
+
+			<div class='scrollbale' style="position: fixed;">
+				<div class="frame"
+					style="margin: 0 1em; width: 400px; height: 400px;">
+					<div id="preview"
+						style="width: 400px; height: 400px; overflow: hidden;">
+						<img ng-src="{{img}}" style="width: 400px; height: 400px;" />
+					</div>
+				</div>
+
+				<div style="clear: both;" />
+
+				<table style="margin-top: 1em;">
+					<thead>
+						<tr>
+							<th colspan="2"
+								style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+								Coordinates</th>
+							<th colspan="2"
+								style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+								Dimensions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 10%;"><b>X<sub>1</sub>:
+							</b></td>
+							<td style="width: 30%;"><input type="text" id="x1" value="-" ng-model="selection.x1"/></td>
+							<td style="width: 20%;"><b>Width:</b></td>
+							<td><input type="text" value="-" id="w" ng-model="selection.width"/></td>
+						</tr>
+						<tr>
+							<td><b>Y<sub>1</sub>:
+							</b></td>
+							<td><input type="text" id="y1" value="-" ng-model="selection.y1"/></td>
+							<td><b>Height:</b></td>
+							<td><input type="text" id="h" value="-" ng-model="selection.height"/></td>
+						</tr>
+						<tr>
+							<td><b>X<sub>2</sub>:
+							</b></td>
+							<td><input type="text" id="x2" value="-" ng-model="selection.x2"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><b>Y<sub>2</sub>:
+							</b></td>
+							<td><input type="text" id="y2" value="-"  ng-model="selection.y2"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+</div>
